@@ -9,18 +9,27 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.0-rc.0",
+    "@apollo/experimental-nextjs-app-support": "^0.0.0-commit-473354a",
+    "@apollo/server": "^4.7.5",
+    "@as-integrations/next": "^2.0.1",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
+    "apollo-server": "^3.12.0",
     "autoprefixer": "^10.4.14",
     "dotenv": "^16.3.1",
+    "encoding": "^0.1.13",
     "eslint": "8.37.0",
-    "eslint-config-next": "13.2.4",
+    "graphql": "^16.7.1",
     "mysql": "^2.18.1",
     "mysql2": "^3.5.1",
-    "next": "13.2.4",
+    "next": "^13.4.10",
     "postcss": "^8.4.21",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "tailwindcss": "^3.3.1"
+  },
+  "devDependencies": {
+    "eslint-config-next": "^13.4.10"
   }
 }

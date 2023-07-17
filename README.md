@@ -1,6 +1,6 @@
 # Peroidic Frog
 
-This is a simple Next.js project connected to a MySQL database.
+This is a simple Next.js project for productivity simulations.
 
 ## Pre-requisites
 
@@ -40,13 +40,13 @@ node -v
 1. Clone the repository:
 
 ```bash
-git clone <repository_url>
+git clone https://github.com/alana-anderson/periodic-frog.git
 ```
 
 2. Change into the project directory:
 
 ```bash
-cd <project_name>
+cd periodic-frog
 ```
 
 3. Install the dependencies:
@@ -103,6 +103,25 @@ DATABASE_NAME=localfrog
 
 Replace `<your_mysql_password>` with your actual MySQL root user password.
 
+Make `.env.local` is added to your `.gitignore`` to prevent accidentally uploading sensitive information.
+
+## Verifying the Database Connection
+
+To verify that your application can successfully connect to the MySQL database using the provided environment variables, you can use the provided script `checkDbConnection.js`.
+
+```bash
+node checkDbConnection.js
+```
+
+The script will attempt to connect to the MySQL database using the configuration provided in the environment variables. If the connection is successful, it will log a success message. If the connection fails, it will log an error message.
+
+If the connection is successful, you should see a message like:
+```bash
+Successfully connected to the database.
+```
+
+If the connection fails, you will see an error message detailing the issue. Ensure that your environment variables are set up correctly and that your MySQL server is running.
+
 ## Running the Application
 
 To start the application, run:
@@ -148,8 +167,45 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-Absolutely, here's an example of what your `README.md` file could look like:
-
 ---
 
+## Project Structure 
+
+Below is a brief overview of the important directories and files in this project:
+
+- `src/app`: This directory contains the main application code. 
+  - `api`: This directory holds server-side code responsible for handling API endpoints.
+    - `getMessage`: A test directory containing the code responsible for retrieving messages from the database.
+    - `graphql`: This directory contains GraphQL server setup and resolvers.
+  - `dashboard`: This directory contains code related to the application's dashboard feature.
+  - `forecasts`: This directory contains code related to the application's forecasts feature.
+  - `projects`: This directory contains code related to the application's projects feature.
+  - `scenarios`: This directory contains code related to the application's scenarios feature.
+  - `team`: This directory contains code related to the application's team and RBAC.
+  - `ApolloClient.js`: This is a configuration file for the Apollo Client, which communicates with your GraphQL server.
+- `components`: This directory contains shared React components.
+- `styles`: This directory contains global styles for the application.
+- `utils`: This directory contains global utility classes for the application.
+- `public`: This directory contains public files like images and fonts.
+- `checkDbConnection.js`: This script checks the connection to the database.
+- `db.js`: This file handles creating a connection pool to the MySQL database.
+- `next.config.js`: This is a Next.js configuration file.
+
+## Debugging Tips
+
+Information dedicated to common issues and fixes.
+
+### checkDbConnection failed with error: ER_ACCESS_DENIED_ERROR
+
+```bash
+Unable to connect to the database: Error: Access denied for user ''@'localhost' (using password: NO)
+```
+
+1. Try hard coding your env variables in the `db.js` file. If this works, then you know that your env variables are not being read correctly. Further debugging may be required, but this is a good first step. 
+
+2. Try running the `checkDbConnection.js` and await response.
+
+3. Attempt to connect to the database using the MySQL command line client. If you are able to connect, then you know that your MySQL server is running and that your credentials are correct. If you are unable to connect, then you know that your MySQL server is not running or that your credentials are incorrect.
+
+4. Attempt to access `/api/graphql`. If you are able to access the GraphQL playground and make a successful query, then you know that your GraphQL server is running and that your credentials are correct. If you are unable to access the GraphQL playground or make a successful query, then you know that your GraphQL server is not running or that your credentials are incorrect.
 
