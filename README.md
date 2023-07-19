@@ -7,6 +7,7 @@ This is a simple Next.js project for productivity simulations.
 - Node.js v16.8.0 or later
 - MySQL Server
 - NVM (Node Version Manager)
+- Prisma & Prisma Client v3.6.0
 
 Install NVM
 
@@ -69,7 +70,7 @@ mysql.server start
 mysql -u root -p
 ```
 
-3. Create a new database:
+3. Create your local database:
 
 ```sql
 CREATE DATABASE localfrog;
@@ -81,13 +82,23 @@ CREATE DATABASE localfrog;
 USE localfrog;
 ```
 
-5. Create a new table:
+5. SIDE NOTE: Keep this terminal open and running the MySQL command prompt. You will need it to run the application. Open another terminal window to run your development server.
 
-```sql
-CREATE TABLE messages (
-  id INT NOT NULL PRIMARY KEY,
-  message VARCHAR(255)
-);
+6. Set your DATABASE_URL in the `.env` file. If this file does not exist, create it & the contents of this file should be:
+
+```bash
+DATABASE_URL="mysql://root:<your_mysql_password>@localhost:3306/localfrog"
+```
+
+7. Apply the migrations to create the database schema:
+
+```bash
+npx prisma migrate dev
+```
+
+8. Generate the Prisma client:
+```bash
+npx prisma generate
 ```
 
 ## Environment Variables
@@ -121,6 +132,14 @@ Successfully connected to the database.
 ```
 
 If the connection fails, you will see an error message detailing the issue. Ensure that your environment variables are set up correctly and that your MySQL server is running.
+
+Remember that terminal window with MySQL server running? Go back to that and run the following command to check your tables:
+
+```bash
+SHOW TABLES;
+```
+
+For more information on your database, see [Your Database and you](https://github.com/alana-anderson/periodic-frog/wiki/Your-Database-and-you)
 
 ## Running the Application
 

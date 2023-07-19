@@ -1,0 +1,228 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model messages {
+  id      Int     @id @default(autoincrement())
+  message String
+}
+
+model User {
+  id                  String        @id @default(uuid())
+  availability        Float?
+  bio                 String?
+  createdAt           DateTime      @default(now())
+  updatedAt           DateTime      @updatedAt
+  name                String?
+  title               String?
+  email               String        @unique
+  organizationId      String?
+  organization        Organization? @relation(fields: [organizationId], references: [id])
+  createdNotebooks    Notebook[]    @relation("CreatedByUsers")
+  editedNotebooks     Notebook[]    @relation("EditedByUsers")
+  scenarios           Scenario[]
+  resources           Resource[]
+  hashedPassword      String        @default("")
+  salt                String        @default("")
+  resetToken          String?
+  resetTokenExpiresAt DateTime?
+  username            String?
+  teamMembers         TeamMember[]
+  userRoles           UserRole[]
+  sentInvites         Invite[]
+}
+
+model Role {
+  id          Int        @id @default(autoincrement())
+  name        String     @default("USER")
+  userRoles   UserRole[]
+}
+
+model UserRole {
+  userId  String
+  user    User    @relation(fields: [userId], references: [id])
+  roleId  Int
+  role    Role    @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+}
+
+model Organization {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  referrer  String?
+  name      String   @unique
+  isActive  Boolean  @default(true)
+  invites   Invite[]
+  users     User[]
+  teams     Team[]
+}
+
+model Invite {
+  id             String        @id @default(uuid())
+  dateSent       DateTime      @default(now())
+  email          String
+  invitedBy      User          @relation(fields: [invitedById], references: [id])
+  invitedById    String
+  isValid        Boolean       @default(true)
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+}
+
+model Notebook {
+  id        Int        @id @default(autoincrement())
+  content   String?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  published Boolean    @default(false)
+  title     String
+  createdBy String
+  createdByUser User   @relation("CreatedByUsers", fields: [createdBy], references: [id])
+  editedBy  String
+  editedByUser User    @relation("EditedByUsers", fields: [editedBy], references: [id])
+  scenarios Scenario[]
+  notebookTeams TeamNotebook[]
+  teamTemplate TeamTemplate?
+  forecasts    Forecast[]
+}
+
+model Scenario {
+  id          String     @id @default(uuid())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  idealStart  DateTime?
+  startDate   DateTime?
+  endDate     DateTime?
+  cadence     String?
+  title       String?
+  type        String?    @default("Scrum")
+  buffer      Int?
+  isActive    Boolean    @default(false)
+  teamId      Int?
+  team        Team?      @relation(fields: [teamId], references: [id])
+  UserId      String
+  user        User       @relation(fields: [UserId], references: [id])
+  velocity    Int?
+  methodology String?
+  capacity    Int?
+  complexity  Int?
+  probability Float?
+  mean        Float?
+  stdDev      Float?
+  min         Float?
+  max         Float?
+  projects    Project[]
+  notebookId  Int
+  notebook    Notebook   @relation(fields: [notebookId], references: [id])
+  forecasts   Forecast[]
+}
+
+model Forecast {
+  id           String    @id @default(uuid())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  title        String?
+  isOnSchedule Boolean?  @default(false)
+  endDate      DateTime?
+  length       Float?
+  scenarioId   String
+  scenario     Scenario  @relation(fields: [scenarioId], references: [id])
+  notebookId   Int
+  notebook     Notebook  @relation(fields: [notebookId], references: [id])
+}
+
+model Resource {
+  id           String           @id @default(uuid())
+  availability Float?
+  UserId       String
+  user         User             @relation(fields: [UserId], references: [id])
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  name         String
+  role         String?
+  capacity     Int              @default(0) // Field to keep track of user's capacity
+  resourceTeams   ResourceTeam[]  // for relation with Team
+  resourceProjects  ResourceProject[]  // for relation with Project
+}
+
+model ResourceTeam {
+  teamId    Int
+  team      Team     @relation(fields: [teamId], references: [id])
+  resourceId  String
+  resource  Resource  @relation(fields: [resourceId], references: [id])
+
+  @@id([teamId, resourceId])
+}
+
+model ResourceProject {
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id])
+  resourceId  String
+  resource    Resource  @relation(fields: [resourceId], references: [id])
+
+  @@id([projectId, resourceId])
+}
+
+model Team {
+  id             Int           @id @default(autoincrement())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  name           String
+  description    String
+  scenarios      Scenario[]
+  teamNotebooks  TeamNotebook[]
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+  teamMembers    TeamMember[]
+  resourceTeams  ResourceTeam[]
+}
+
+model TeamMember {
+  teamId    Int
+  team      Team   @relation(fields: [teamId], references: [id])
+  userId    String
+  user      User   @relation(fields: [userId], references: [id])
+  
+  @@id([teamId, userId])
+}
+
+model TeamNotebook {
+  teamId    Int
+  team      Team      @relation(fields: [teamId], references: [id])
+  notebookId  Int
+  notebook  Notebook  @relation(fields: [notebookId], references: [id])
+
+  @@id([teamId, notebookId])
+}
+
+// A mock team for scenario/forecasting creation
+model TeamTemplate {
+  id          Int             @id @default(autoincrement())
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+  resources   Int             @default(0)
+  notebookId  Int       @unique
+  notebook    Notebook  @relation(fields: [notebookId], references: [id])
+}
+
+model Project {
+  id          String     @id @default(uuid())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  startDate   DateTime?
+  endDate     DateTime?
+  designation String?
+  description String?
+  name        String
+  size        String?
+  slug        String?
+  scenarioId  String
+  scenario    Scenario   @relation(fields: [scenarioId], references: [id])
+  resourceProjects ResourceProject[]
+}
