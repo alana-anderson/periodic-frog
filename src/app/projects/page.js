@@ -3,9 +3,10 @@ import Header from '../../../components/Header';
 
 export default function Page() {
   return (
-    <ProjectsLayout>
-        <Header title="Projects" />
-        <p>Projects</p>
-    </ProjectsLayout>
+    <section className='py-24'>
+      <div className='container'>
+        <h1 className='text-2xl font-bold'>Projects</h1>
+      </div>
+    </section>
   );
 }

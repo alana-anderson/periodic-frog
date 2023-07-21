@@ -1,5 +1,6 @@
 import './globals.css'
 import Navigation from '../../components/Navigation';
+import Provider from '../../components/Provider';
 
 export const metadata = {
   title: 'Productivity Simulation',
@@ -11,8 +12,10 @@ export default function RootLayout({ children, asideContent }) {
   return (
     <html lang="en" className="h-full">
       <body className="h-full bg-gray-900">
-        <section><Navigation /></section>
-        <section>{children}</section>
+        <Provider>
+          <Navigation />
+          <main>{children}</main>
+        </Provider>
       </body>
     </html>
   );

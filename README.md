@@ -101,6 +101,8 @@ npx prisma migrate dev
 npx prisma generate
 ```
 
+For more information on your database, see [Your Database and you.](https://github.com/alana-anderson/periodic-frog/wiki/Your-Database-and-you)
+
 ## Environment Variables
 
 Create a `.env.local` file at the project root with the following content:

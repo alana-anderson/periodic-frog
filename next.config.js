@@ -6,6 +6,7 @@ const nextConfig = {
   images: {
     domains: ['avatars.githubusercontent.com'],
   },
+  serverComponentsExternalPackages: ["@prisma/client", "bcryptjs"],
   serverRuntimeConfig: {
     // Will only be available on the server side
     DATABASE_HOST: process.env.DATABASE_HOST,
