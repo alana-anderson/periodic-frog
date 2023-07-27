@@ -35,7 +35,7 @@ export default function Navigation() {
   const { data: session } = useSession();
   const user = session?.user;
 
-  console.log(session)
+  console.log("client session: ", session);
 
   return (
     <Disclosure as="nav" className="bg-gray-800">
@@ -127,15 +127,14 @@ export default function Navigation() {
                       >
                         Profile
                       </Link>
-                      <Link
-                        href="/logout"
-                        className={classNames(
-                          'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                      >
-                        Logout
-                      </Link>
+                        <a
+                          onClick={() => signOut({ callbackUrl: `/`})}
+                          className={classNames(
+                            'text-gray-300 hover:bg-gray-700 hover:text-white',
+                            'rounded-md px-3 py-2 text-sm font-medium'
+                          )}>
+                            Signout
+                          </a>
                     </>
                   )}
                   <Menu as="div" className="relative ml-3">

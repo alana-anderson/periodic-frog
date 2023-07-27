@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { hash, compare } from "bcryptjs";
+import { prisma } from "@/lib/prisma";
 
 const authOptions = {
   pages: {
@@ -49,6 +50,8 @@ const authOptions = {
           email: user.email,
           username: user.username,
           randomKey: "Hey cool",
+          name: user.name,
+          image: user.image
         };
       },
     }),

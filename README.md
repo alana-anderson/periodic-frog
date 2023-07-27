@@ -101,6 +101,11 @@ npx prisma migrate dev
 npx prisma generate
 ```
 
+9. View your DB in action with Prisma Studio (http://localhost:5555):
+```bash
+npx prisma studio
+```
+
 For more information on your database, see [Your Database and you.](https://github.com/alana-anderson/periodic-frog/wiki/Your-Database-and-you)
 
 ## Environment Variables
@@ -112,11 +117,22 @@ DATABASE_HOST=localhost
 DATABASE_USER=root
 DATABASE_PASSWORD=<your_mysql_password>
 DATABASE_NAME=localfrog
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET=<generate>
 ```
 
 Replace `<your_mysql_password>` with your actual MySQL root user password.
 
+Within your `.env.local` file, add a `NEXTAUTH_SECRET` variable. This variable will be used to encrypt the session cookie. You can generate a random string using the following command:
+```bash
+openssl rand -base64 32
+
+// output
+// mQ46qpFwfE1BHuqMC+qlm19qBAD9fVPgh28werwe3ASFlAfnKjM=
+```
+
 Make `.env.local` is added to your `.gitignore`` to prevent accidentally uploading sensitive information.
+
 
 ## Verifying the Database Connection
 
@@ -167,8 +183,6 @@ This `README.md` file provides all the instructions necessary for setting up the
 You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
 [API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 

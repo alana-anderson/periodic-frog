@@ -13,7 +13,7 @@ export default function Header({ title, action }) {
               </h2>
             </div>
             <div className="mt-4 flex md:ml-4 md:mt-0">
-              {/* Button can go here */}
+              {action && <Button text={action} />}
             </div>
           </div>
         </div>
