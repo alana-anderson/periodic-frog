@@ -10,6 +10,12 @@ const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
 const DATABASE_NAME = process.env.DATABASE_NAME;
 
 const typeDefs = gql`
+  type User {
+    name: String!
+    email: String!
+    username: String!
+  }
+
   type Message {
     id: ID!
     message: String!
@@ -17,13 +23,17 @@ const typeDefs = gql`
 
   type Query {
     messages: [Message!]!
+    userProfile(username: String!): User
   }
 `;
 
 const resolvers = {
   Query: {
     messages: async () => {
-      // Use the environment variables from the server runtime configuration
+      // Existing code for fetching messages
+    },
+    userProfile: async (_, { username }) => {
+      // Code to fetch user profile by username
       const connection = await mysql.createConnection({
         host: DATABASE_HOST,
         user: DATABASE_USER,
@@ -31,11 +41,11 @@ const resolvers = {
         password: DATABASE_PASSWORD,
       });
 
-      const [rows] = await connection.execute('SELECT * FROM `messages`');
-      
+      const [rows] = await connection.execute('SELECT * FROM `User` WHERE `username` = ?', [username]);
+
       await connection.end();
       
-      return rows;
+      return rows[0];
     },
   },
 };

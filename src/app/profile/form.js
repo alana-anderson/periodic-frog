@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from 'react';
-import { PhotoIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import Alert from '@/components/Alert';
+import { signIn, signOut } from "next-auth/react";
+import { useSession } from 'next-auth/react';
 
 export const ProfileForm = ({ session }) => {
   const [name, setName] = useState(session.name);
   const [email, setEmail] = useState(session.email);
   const [username, setUsername] = useState(session.username);
+  const [alertStatus, setAlertStatus] = useState('hidden');
 
   const onSubmit = async event => {
     event.preventDefault()
@@ -25,7 +28,17 @@ export const ProfileForm = ({ session }) => {
     })
 
     if (res.ok) {
-      // handle successful user update (maybe show a success message?)
+      const data = await res.json();
+  
+      // Update the Next-Auth session with the new user data
+      const updateRes = await fetch('/api/session/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data.user),
+        credentials: 'same-origin', // Include credentials
+      });
     } else {
       // handle failed user update
     }
@@ -33,6 +46,7 @@ export const ProfileForm = ({ session }) => {
 
   return (
     <div className="divide-y divide-white/5">
+      <Alert type="success" message="Profile updated successfully" />
         <div className="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
           <div>
               <h2 className="text-base font-semibold leading-7 text-white">Personal Information</h2>

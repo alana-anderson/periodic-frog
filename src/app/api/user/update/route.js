@@ -1,22 +1,29 @@
-import { getSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth/next';
+import { NextResponse } from 'next/server'
 import { prisma } from "@/lib/prisma";
+import { authOptions } from "@/lib/auth";
 
-export const POST = async function(req, res) {
-  console.log('Received request');  // Log here
-  const session = await getSession({ req });
+export const POST = async function(req) {
+  const data = await req.json();
+  console.log('Received request', data);  // Log here
+  const session = await getServerSession(authOptions);
   console.log('Session', session);  // Log here
+  
 
   if (!session) {
-    res.status(401).json({ message: 'No session found' });
-    return;
+    return new NextResponse(JSON.stringify({ error: 'unauthorized' }), {
+      status: 401
+    })
   }
 
-  const { id, name, email, username } = req.body;
-  console.log('Received body', req.body);  // Log here
+  const { id, name, email, username } = data;
+  console.log('Received body', data);  // Log here
 
-  if (id !== session.user.id) {
-    res.status(403).json({ message: 'Forbidden. You are not authorized to perform this operation.' });
-    return;
+  console.log('SESSION IDS: ' + id + ' ' + session.user.id);  // Log here
+  if (id != session.user.id) {
+    return new NextResponse(JSON.stringify({ error: 'Forbidden. You are not authorized to perform this operation.' }), {
+      status: 403
+    })
   }
 
   try {
@@ -24,15 +31,33 @@ export const POST = async function(req, res) {
       where: { id: session.user.id },
       data: { name, email, username },
     });
+    
     console.log('User updated', updatedUser);  // Log here
 
     if (updatedUser) {
-      res.status(200).json({ message: 'User updated successfully' });
+      return new NextResponse(JSON.stringify({
+        user: {
+          id: updatedUser.id + '',
+          email: updatedUser.email,
+          username: updatedUser.username,
+          name: updatedUser.name,
+          image: updatedUser.image,
+        }
+      }), {
+        status: 200
+      });
+      
+      // return new NextResponse(JSON.stringify({ message: 'User updated successfully' }), {
+      //   status: 200
+      // })
+      
     } else {
-      res.status(500).json({ message: 'User update failed' });
+      return new NextResponse(JSON.stringify({ message: 'User update failed' }), {
+        status: 500
+      })
     }
   } catch (error) {
     console.error('Error updating user', error);  // Log here
-    res.status(500).json({ message: `Update failed: ${error.message}` });
+    return new NextResponse.json({ message: `Update failed: ${error.message}` })
   }
 }
