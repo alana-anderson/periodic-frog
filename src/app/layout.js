@@ -13,8 +13,10 @@ export default function RootLayout({ children, asideContent }) {
     <html lang="en" className="h-full">
       <body className="h-full bg-gray-900">
         <Provider>
+        <header>
           <Navigation />
           <main>{children}</main>
+        </header>
         </Provider>
       </body>
     </html>
