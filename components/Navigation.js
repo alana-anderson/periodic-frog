@@ -55,6 +55,7 @@ export default function Navigation() {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-shrink-0 items-center">
+                <Link href="/">
                   <Image
                     className="h-8 w-8"
                     width={200}
@@ -62,6 +63,7 @@ export default function Navigation() {
                     src="/images/logoLight.png"
                     alt="Your Company"
                   />
+                </Link>
                 </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch">
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
