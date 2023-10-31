@@ -2,3 +2,12 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+@layer components {
+    .btn { @apply bg-slate-800 font-semibold text-white shadow-sm hover:bg-slate-950 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-800; }
+    .btn-primary_xl { @apply rounded-md px-3.5 py-2.5 text-sm; }
+    .btn-primary_lg { @apply rounded-md px-3 py-2 text-sm; }
+    .btn-primary_md { @apply rounded-md px-2.5 py-1.5 text-sm; }
+    .btn-primary_sm { @apply rounded px-2 py-1 text-sm; }
+    .btn-primary_xs { @apply rounded px-2 py-1 text-xs; }
+}

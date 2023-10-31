@@ -81,26 +81,13 @@ export default function Navigation() {
 
                 {/* Profile dropdown */}
                 {!user && (
-                    <>
-                    <Link
-                        href="/login"
-                        className={classNames(
-                          'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
-                      >
-                        Login
-                      </Link>
+                    <button className="btn btn-primary_lg" type="button">
                       <Link
-                        href="/register"
-                        className={classNames(
-                          'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium'
-                        )}
+                        href="/login"
                       >
-                        Register
+                        Log in
                       </Link>
-                    </>
+                    </button>
                   )}
                   {user && (
                     <>
