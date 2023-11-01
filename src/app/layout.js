@@ -1,6 +1,7 @@
 import './globals.css'
 import Navigation from '../../components/Navigation';
 import AuthProvider from '../../components/Provider';
+import Footer from '../../components/Footer';
 
 export const metadata = {
   title: 'Productivity Simulation',
@@ -15,8 +16,11 @@ export default function RootLayout({ children, asideContent }) {
         <AuthProvider>
         <header>
           <Navigation />
-          <main>{children}</main>
         </header>
+        <main>{children}</main>
+        <footer>
+          <Footer />
+        </footer>
         </AuthProvider>
       </body>
     </html>
