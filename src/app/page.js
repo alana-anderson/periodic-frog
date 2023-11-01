@@ -17,7 +17,7 @@ export default function Home() {
           <button className="btn btn-primary_xl btn-white text-rose-500">Live Demo</button>
         </div>
       </div>
-      <div className="px-4 py-24">
+      <div className="mx-4 my-24 shadow-xl">
         <Image 
           src={'/images/NotebookScreenshot.png'}
           height={1000}
