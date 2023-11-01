@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <section className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-24'>
+    <section className='mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 py-32'>
       <div className='flex justify-center flex-col items-center'>
         <h1 className='pb-4 text-5xl font-semibold tracking-tight text-slate-800'>Scenario
         <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-blue-400"> project planning</span>
