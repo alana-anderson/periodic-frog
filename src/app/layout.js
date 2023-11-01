@@ -11,7 +11,7 @@ export default function RootLayout({ children, asideContent }) {
 
   return (
     <html lang="en" className="h-full">
-      <body className="h-full bg-gray-900">
+      <body className="h-full bg-slate-50">
         <AuthProvider>
         <header>
           <Navigation />

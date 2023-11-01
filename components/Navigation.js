@@ -83,7 +83,7 @@ export default function Navigation() {
 
                 {/* Profile dropdown */}
                 {!user && (
-                    <button className="btn btn-primary_lg" type="button">
+                    <button className="btn btn-primary_lg btn-dark" type="button">
                       <Link
                         href="/login"
                       >
