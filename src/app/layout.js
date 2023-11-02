@@ -4,7 +4,7 @@ import AuthProvider from '../../components/Provider';
 import Footer from '../../components/Footer';
 
 export const metadata = {
-  title: 'Productivity Simulation',
+  title: 'Knomadic',
   description: 'Simulate your next project',
 }
 export default function RootLayout({ children, asideContent }) {

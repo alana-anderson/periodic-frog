@@ -15,7 +15,7 @@ export default function Footer() {
                           <a href="/" className="hover:underline">{'+1 (432) 453-3456'}</a>
                       </li>
                       <li>
-                          <a href="/" className="hover:underline">support@test.com</a>
+                          <a href="/" className="hover:underline">support@knomadic.com</a>
                       </li>
                   </ul>
           </div>
@@ -46,7 +46,7 @@ export default function Footer() {
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
-          <span className="text-sm text-gray-500 sm:text-center">© 2023 <a href="https://google.com/" className="hover:underline">Productivity Simulator™</a>. All Rights Reserved.
+          <span className="text-sm text-gray-500 sm:text-center">© 2023 <a href="https://google.com/" className="hover:underline">Knomadic™</a>. All Rights Reserved.
           </span>
           <div className="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
               <a href="#" className="text-gray-500 hover:text-gray-900">
