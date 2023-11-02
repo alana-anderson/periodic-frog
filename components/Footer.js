@@ -5,7 +5,7 @@ import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
 export default function Footer() {
     return (
         
-<footer className="bg-white">
+<footer className="bg-white shadow-[0px_1px_3px_0px_rgba(0,0,0,0.40)]">
     <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between items-center">
           <div className="mb-6 md:mb-0 mr-20">
