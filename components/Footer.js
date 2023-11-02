@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
+
 
 export default function Footer() {
     return (
@@ -6,7 +8,7 @@ export default function Footer() {
 <footer className="bg-white">
     <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between items-center">
-          <div className="mb-6 md:mb-0">
+          <div className="mb-6 md:mb-0 mr-20">
               <a href="/" className="flex items-center mb-4">
                   <Image src="/images/logoLight.png" width={50} height={50} classNameName="w-2 h-2" alt="FlowBite Logo" />
               </a>
@@ -19,7 +21,7 @@ export default function Footer() {
                       </li>
                   </ul>
           </div>
-          <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+          <div className="grid grid-cols-2 gap-20 sm:gap-20 sm:grid-cols-3">
               <div>
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Quick Links</h2>
                   <ul className="text-gray-500 font-medium">
@@ -31,7 +33,7 @@ export default function Footer() {
                       </li>
                   </ul>
               </div>
-              <div className="pl-12">
+              <div>
                   <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase invisible">Test</h2>
                   <ul className="text-gray-500 font-medium">
                       <li className="mb-4">
@@ -43,6 +45,21 @@ export default function Footer() {
                   </ul>
               </div>
           </div>
+              <div>
+                <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Subscribe</h2>
+                <div className="flex rounded-md shadow-sm">
+                    <input 
+                    type="email" 
+                    id="hs-trailing-button-add-on" 
+                    name="hs-trailing-button-add-on" 
+                    className="py-3 px-4 block w-full text-slate-700 border-gray-500 shadow-sm rounded-l-md text-sm bg-slate-200 focus:outline-none"
+                    placeholder="Get product updates"
+                    />
+                    <button type="button" className="py-3 px-4 inline-flex flex-shrink-0 justify-center items-center gap-2 rounded-r-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 text-sm">
+                    <ArrowLongRightIcon className="w-6 h-6" aria-hidden="true" />
+                    </button>
+                </div>
+                </div>
       </div>
       <hr className="my-6 border-gray-200 sm:mx-auto lg:my-8" />
       <div className="sm:flex sm:items-center sm:justify-between">
